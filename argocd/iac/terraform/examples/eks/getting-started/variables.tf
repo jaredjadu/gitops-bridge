@@ -1,17 +1,17 @@
 variable "vpc_cidr" {
   description = "VPC CIDR"
   type        = string
-  default     = "10.0.0.0/16"
+  default     = "10.71.0.0/16"
 }
 variable "region" {
   description = "AWS region"
   type        = string
-  default     = "us-west-2"
+  default     = "eu-west-1"
 }
 variable "kubernetes_version" {
   description = "Kubernetes version"
   type        = string
-  default     = "1.28"
+  default     = "1.32"
 }
 variable "addons" {
   description = "Kubernetes addons"
@@ -20,13 +20,14 @@ variable "addons" {
     enable_aws_load_balancer_controller = true
     enable_aws_ebs_csi_resources        = true # generate gp2 and gp3 storage classes for ebs-csi
     enable_metrics_server               = true
+    enable_velero                       = true
   }
 }
 # Addons Git
 variable "gitops_addons_org" {
   description = "Git repository org/user contains for addons"
   type        = string
-  default     = "https://github.com/gitops-bridge-dev"
+  default     = "https://github.com/jaredjadu"
 }
 variable "gitops_addons_repo" {
   description = "Git repository contains for addons"
@@ -53,7 +54,7 @@ variable "gitops_addons_path" {
 variable "gitops_workload_org" {
   description = "Git repository org/user contains for workload"
   type        = string
-  default     = "https://github.com/gitops-bridge-dev"
+  default     = "https://github.com/jaredjadu"
 }
 variable "gitops_workload_repo" {
   description = "Git repository contains for workload"
