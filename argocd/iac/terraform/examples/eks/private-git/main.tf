@@ -124,7 +124,10 @@ locals {
       workload_repo_basepath = local.gitops_workload_basepath
       workload_repo_path     = local.gitops_workload_path
       workload_repo_revision = local.gitops_workload_revision
-    }
+    },
+    try(local.aws_addons.enable_velero, false) ? {
+      velero_backup_s3_bucket_prefix = try(local.velero_backup_s3_bucket_prefix, "")
+    velero_backup_s3_bucket_name = try(local.velero_backup_s3_bucket_name, "") } : {} # Required when enabling addon velero
   )
 
   argocd_apps = {
@@ -136,7 +139,15 @@ locals {
     Blueprint  = local.name
     GithubRepo = "github.com/gitops-bridge-dev/gitops-bridge"
   }
+
+  velero_backup_s3_bucket        = try(split(":", module.velero_backup_s3_bucket.s3_bucket_arn), [])
+  velero_backup_s3_bucket_name   = try(local.velero_backup_s3_bucket[5], "")
+  velero_backup_s3_bucket_prefix = "backups"
+  # velero_backup_s3_backup_location = "${module.velero_backup_s3_bucket.s3_bucket_arn}/backups"
+  velero_backup_s3_backup_location = try(join("/", [module.velero_backup_s3_bucket.s3_bucket_arn, local.velero_backup_s3_bucket_prefix]), "")
 }
+
+
 
 ################################################################################
 # GitOps Bridge: Private ssh keys for git
@@ -219,6 +230,10 @@ module "eks_blueprints_addons" {
   enable_karpenter                    = local.aws_addons.enable_karpenter
   enable_velero                       = local.aws_addons.enable_velero
   enable_aws_gateway_api_controller   = local.aws_addons.enable_aws_gateway_api_controller
+
+  velero = {
+    s3_backup_location = local.velero_backup_s3_backup_location
+  }
 
   tags = local.tags
 }
