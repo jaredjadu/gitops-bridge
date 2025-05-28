@@ -130,9 +130,13 @@ locals {
     velero_backup_s3_bucket_name = try(local.velero_backup_s3_bucket_name, "") } : {} # Required when enabling addon velero
   )
 
+  # argocd_apps = {
+  #   addons    = file("${path.module}/bootstrap/addons.yaml")
+  #   workloads = file("${path.module}/bootstrap/workloads.yaml")
+  # }
+
   argocd_apps = {
     addons    = file("${path.module}/bootstrap/addons.yaml")
-    workloads = file("${path.module}/bootstrap/workloads.yaml")
   }
 
   tags = {
