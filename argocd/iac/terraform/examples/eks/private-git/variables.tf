@@ -78,25 +78,25 @@ variable "gitops_addons_path" {
 variable "gitops_workload_org" {
   description = "Git repository org/user contains for workload"
   type        = string
-  default     = "git@github.com:argoproj"
+  default     = "https://github.com/jaredjadu"
 }
 variable "gitops_workload_repo" {
   description = "Git repository contains for workload"
   type        = string
-  default     = "argocd-example-apps"
+  default     = "gitops-bridge"
 }
 variable "gitops_workload_revision" {
   description = "Git repository revision/branch/ref for workload"
   type        = string
-  default     = "master"
+  default     = "main"
 }
 variable "gitops_workload_basepath" {
   description = "Git repository base path for workload"
   type        = string
-  default     = ""
+  default     = "argocd/iac/terraform/examples/eks/"
 }
 variable "gitops_workload_path" {
   description = "Git repository path for workload"
   type        = string
-  default     = "helm-guestbook"
+  default     = "getting-started/k8s"
 }
