@@ -78,7 +78,7 @@ variable "gitops_addons_path" {
 variable "gitops_workload_org" {
   description = "Git repository org/user contains for workload"
   type        = string
-  default     = "https://github.com/jaredjadu"
+  default     = "git@github.com/jaredjadu"
 }
 variable "gitops_workload_repo" {
   description = "Git repository contains for workload"
