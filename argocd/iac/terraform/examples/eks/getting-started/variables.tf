@@ -20,7 +20,7 @@ variable "addons" {
     enable_aws_load_balancer_controller = true
     enable_aws_ebs_csi_resources        = true # generate gp2 and gp3 storage classes for ebs-csi
     enable_metrics_server               = true
-    enable_velero                       = true
+    enable_velero                       = false
   }
 }
 # Addons Git
